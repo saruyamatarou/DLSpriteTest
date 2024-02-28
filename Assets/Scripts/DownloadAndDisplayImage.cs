@@ -6,7 +6,9 @@ using UnityEngine.UI; // UIを使用する場合はこの行が必要
 
 public class DownloadImageAsSprite : MonoBehaviour
 {
-    public string imageUrl = "ここに画像のURLを入力"; // 表示したい画像のURL
+    public string imageUrl1024 = "ここに画像のURLを入力"; // 表示したい画像のURL
+    public string imageUrl512 = "ここに画像のURLを入力"; // 表示したい画像のURL
+    public string imageUrl256 = "ここに画像のURLを入力"; // 表示したい画像のURL
     public SpriteRenderer spriteRenderer; // SpriteRendererを使用する場合
     // public Image uiImage; // UIのImageコンポーネントを使用する場合
 
@@ -23,15 +25,14 @@ public class DownloadImageAsSprite : MonoBehaviour
     void Start()
     {
         Debug.Log("開始");
-        StartCoroutine(DownloadImage(imageUrl));
+        StartCoroutine(DownloadImage(imageUrl1024, 1.0f, 0.5f, 400.0f));
+        StartCoroutine(DownloadImage(imageUrl512, 0.0f, 0.5f, 200.0f));
+        StartCoroutine(DownloadImage(imageUrl256, -1.0f, 0.5f, 100.0f));
     }
 
-    IEnumerator DownloadImage(string url)
+    IEnumerator DownloadImage(string url, float x, float y, float scale)
     {
-
-
-        UnityWebRequest request = UnityWebRequest.Get(url);
-        //UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -41,50 +42,23 @@ public class DownloadImageAsSprite : MonoBehaviour
         else
         {
             Debug.Log("ダウンロード成功");
+            Texture2D texture = DownloadHandlerTexture.GetContent(request);
 
-
-
-            // ダウンロードしたデータを取得
-            byte[] imageData = request.downloadHandler.data;
-
-            // 新しいTexture2Dを作成し、画像データをロードする
-            Texture2D texture = new Texture2D(2, 2); // 初期サイズは適当でOK、LoadImage時に適切なサイズにリサイズされる
-            if (texture.LoadImage(imageData))
-            {
-                // テクスチャの変換に成功した場合の処理
-                // 例: テクスチャを表示するなど
-                Debug.Log("画像をTexture2Dに変換成功");
-            }
-            else
-            {
-                Debug.LogError("画像データのTexture2Dへの変換に失敗");
-            }
-
-            // ダウンロードした画像をTexture2Dとして取得
-            //Texture2D texture = DownloadHandlerTexture.GetContent(request);
-
-            // テクスチャフォーマットを確認
             Debug.Log("ダウンロードしたテクスチャのフォーマット: " + texture.format);
+            texture.Compress(true);
+            Debug.Log("テクスチャを圧縮しました。");
+            Debug.Log("圧縮後のフォーマット: " + texture.format);
 
-            // テクスチャが圧縮可能なフォーマットであるかを確認して、可能であれば圧縮する
-            //if (IsCompressibleFormat(texture.format))
-            //{
-                texture.Compress(true); // 高品質の圧縮を指示
-                Debug.Log("テクスチャを圧縮しました。");
-                Debug.Log("圧縮後のフォーマット: " + texture.format);
-            //}
-            //else
-            //{
-            //    Debug.LogWarning("テクスチャのフォーマットは圧縮可能ではありません: " + texture.format);
-            //}
+            // 新しいGameObjectを作成してSpriteRendererコンポーネントを追加
+            GameObject newGameObject = new GameObject("DownloadedImage");
+            SpriteRenderer spriteRenderer = newGameObject.AddComponent<SpriteRenderer>();
 
-
-            // Texture2DからSpriteを生成
-            Sprite newSprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-
-            // SpriteRendererまたはUIのImageコンポーネントに新しいSpriteを割り当て
+            // Texture2DからSpriteを生成してSpriteRendererに設定
+            Sprite newSprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), scale);
             spriteRenderer.sprite = newSprite;
-            // uiImage.sprite = newSprite; // UIのImageコンポーネントを使用する場合はこの行を有効に
+
+            // 画像の位置を設定
+            newGameObject.transform.position = new Vector3(x, y, 0);
         }
     }
 
