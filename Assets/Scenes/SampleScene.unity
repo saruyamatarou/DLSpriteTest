@@ -297,7 +297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0384d780e8df953439e19840f494c5ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imageUrl: https://saruyamatarou.github.io/DLSpriteTest/images/bee1024.png
+  imageUrl1024: https://saruyamatarou.github.io/DLSpriteTest/images/bee1024.png
+  imageUrl512: https://saruyamatarou.github.io/DLSpriteTest/images/bee512.png
+  imageUrl256: https://saruyamatarou.github.io/DLSpriteTest/images/bee256.png
   spriteRenderer: {fileID: 1508969311}
   maxLogs: 20
   guiStyle:
