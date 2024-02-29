@@ -6,9 +6,6 @@ using UnityEngine.UI; // UIを使用する場合はこの行が必要
 
 public class DownloadImageAsSprite : MonoBehaviour
 {
-    public string imageUrl1024 = "ここに画像のURLを入力"; // 表示したい画像のURL
-    public string imageUrl512 = "ここに画像のURLを入力"; // 表示したい画像のURL
-    public string imageUrl256 = "ここに画像のURLを入力"; // 表示したい画像のURL
     public SpriteRenderer spriteRenderer; // SpriteRendererを使用する場合
     // public Image uiImage; // UIのImageコンポーネントを使用する場合
 
@@ -25,9 +22,15 @@ public class DownloadImageAsSprite : MonoBehaviour
     void Start()
     {
         Debug.Log("開始");
-        StartCoroutine(DownloadImage(imageUrl1024, 1.0f, 0.5f, 400.0f));
-        StartCoroutine(DownloadImage(imageUrl512, 0.0f, 0.5f, 200.0f));
-        StartCoroutine(DownloadImage(imageUrl256, -1.0f, 0.5f, 100.0f));
+
+        StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/hero_sample_1_1024.png", 1.0f, 3.0f, 400.0f));
+        StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/hero_sample_1_512.png", 0.0f, 3.0f, 200.0f));
+        StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/hero_sample_1_256.png", -1.0f, 3.0f, 100.0f));
+
+        StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/monster_sample_3_1000x700.png", 1.0f, 0.0f, 400.0f));
+        StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/monster_sample_3_500x350.png", 0.0f, 0.0f, 200.0f));
+        StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/monster_sample_3_250x175.png", -1.0f, 0.0f, 100.0f));
+
     }
 
     IEnumerator DownloadImage(string url, float x, float y, float scale)
