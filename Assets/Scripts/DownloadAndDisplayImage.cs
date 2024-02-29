@@ -31,9 +31,9 @@ public class DownloadImageAsSprite : MonoBehaviour
         StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/hero_sample_3_512.png", 0.0f, 0.0f, 200.0f * 0.8f));
         StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/hero_sample_3_256.png", 2.0f, 0.0f, 100.0f * 0.8f));
 
-        StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/monster_sample_3_1000x700.png",-2.0f, -3.0f, 400.0f * 0.8f));
-        StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/monster_sample_3_500x350.png", 0.0f, -3.0f, 200.0f * 0.8f));
-        StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/monster_sample_3_250x175.png", 2.0f, -3.0f, 100.0f * 0.8f));
+        StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/monster_sample_3_1024.png",-2.0f, -3.0f, 400.0f * 0.8f));
+        StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/monster_sample_3_512.png", 0.0f, -3.0f, 200.0f * 0.8f));
+        StartCoroutine(DownloadImage("https://saruyamatarou.github.io/DLSpriteTest/images/monster_sample_3_256.png", 2.0f, -3.0f, 100.0f * 0.8f));
 
     }
 
